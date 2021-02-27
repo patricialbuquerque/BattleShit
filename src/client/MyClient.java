@@ -1,4 +1,5 @@
 package client;
 
-public class MyClient extends BattleField{
+public class MyClient extends BattleField {
+
 }
