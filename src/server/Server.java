@@ -2,25 +2,54 @@ package server;
 
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerInputScanner;
-import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
     private ServerSocket serverSocket;
-    private Socket clientSocket;
-    private ClientHandler clientHandler;
+    private Socket socketPlayer1;
+    private Socket socketPlayer2;
     private int portServer;
     private Prompt promptToInside;
-
-
 
     public Server(){
         promptToInside = new Prompt(System.in, System.out);
         prepareServerSocket();
-        prepareClientSocket();
+        System.out.println("Teste1");
+        prepareClientSocket1();
+        System.out.println("teste2");
+        prepareClientSocket2();
+        System.out.println("teste3");
+        sendMessage1("Teste para player1");
+        sendMessage2("Teste para player2");
+
+        continuarLigado();
+    }
+
+    private void continuarLigado(){
+        while (true){
+        }
+    }
+
+    private void sendMessage1(String messageToSend){
+        try {
+            PrintWriter out = new PrintWriter(socketPlayer1.getOutputStream(), true);
+            out.println(messageToSend);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendMessage2(String messageToSend){
+        try {
+            PrintWriter out = new PrintWriter(socketPlayer2.getOutputStream(), true);
+            out.println(messageToSend);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void prepareServerSocket() {
@@ -37,10 +66,19 @@ public class Server {
         }
     }
 
-    private void prepareClientSocket() {
+    private void prepareClientSocket1() {
         try {
-            clientSocket = serverSocket.accept();
-            System.out.println("Connection to client accepted.");
+            socketPlayer1 = serverSocket.accept();
+            System.out.println("Connection to player1 accepted.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void prepareClientSocket2(){
+        try {
+            socketPlayer2 = serverSocket.accept();
+            System.out.println("Connection to player2 accepted.");
         } catch (IOException e) {
             e.printStackTrace();
         }

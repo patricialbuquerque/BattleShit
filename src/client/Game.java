@@ -51,10 +51,11 @@ public class Game {
 
     private void gameCanStart(){
 
+
+
         // Enviar para o servidor o canStartGame do menu para verificar se ambos os players podem começar o jogo.
         // Se não, wait.
         // Se sim, iniciar o jogo.
-
     }
 
 
