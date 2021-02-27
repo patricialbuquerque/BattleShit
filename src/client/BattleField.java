@@ -1,6 +1,6 @@
 package client;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public abstract class BattleField {
 
@@ -8,28 +8,37 @@ public abstract class BattleField {
 
     private static final int ROWS = 10;
     private static final int COLS = 10;
-    private static HashMap<String, String> grid;
+    private static TreeMap<String, String> grid;
 
 
     //CONSTRUCTOR
     public BattleField(){
-        this.grid = new HashMap<>();
+        this.grid = new TreeMap<>();
 
 
     }
 
-    //METHODS
+    public void createField() {
 
-    public void waterGrid(){
         String alphabet = "ABCDEFGHIJ";
+        String line = "";
 
-        for(int i = 0; i < ROWS; i++){
-            for (int j = 0; j < COLS; j++) {
-
-                grid.put(alphabet.substring(i , i + 1) + j, "≈");
-
-            }
+        System.out.print(" ");
+        for (int i = 0; i < 10; i++) {
+            System.out.print("|" + " " + i + " ");
         }
+        System.out.print("|");
+        System.out.println();
 
+        for (int i = 0; i < 10; i++) {
+            String letter = Character.toString(alphabet.charAt(i));
+            for (int j = 0; j < 10; j++) {
+                grid.put(letter + j, "≈");
+                line += grid.get(letter + j + " | ");
+            }
+            System.out.println(letter + "| " + line);
+            line = "";
+        }
     }
+
 }
