@@ -53,6 +53,7 @@ public class MenuServer {
                 deployPositionShips();//Implementar depois de termos os barcos definidos. Vai aqui deixar de ser água para ser barco.
                 break;
             case 4:
+                // inserir condições se escolheu o nome e se escolheu a posição dos barcos.
                 GameServer newGame = new GameServer();
                 newGame.start();
         }
@@ -75,24 +76,52 @@ public class MenuServer {
                 preGameMenuTrue();
                 break;
             case 4:
+                // inserir a condição se escolheu o nome.
                 GameServer newGame = new GameServer();
                 newGame.start();
         }
+    }
+
+    public void deployPositionShips(){ //Responsable for positioning our ships in the grid.
+
+
+
 
     }
 
-    public void deployPositionShips(){
-
-
-
-
+    public void inGameMenuOpponentTurn(){
+        String[] options = {"Waiting for Opponent", "Chat", "Rage Quit"};
+        String setMessage = "Incoming Fire! Protect yourself!";
+        switch (menuMaker(options,setMessage)){
+            case 1:
+                System.out.println("It's our opponent turn, Admiral " + playerNewName + "!");
+                inGameMenuOurTurn();
+                break;
+            case 2:
+                // Implementar o chat.
+                System.out.println("Ainda em construção");
+            case 3:
+                // Enviar mensagem ao oponente que este disconectou!
+                System.exit(0);
+        }
     }
 
-    public void inGameMenu(){
-
+    public void inGameMenuOurTurn(){
+        String[] options = {"FIRE!!", "Chat", "Rage Quit"};
+        String setMessage = "Open Fire! Let's shoot the bastards!!";
+        switch(menuMaker(options,setMessage)){
+            case 1:
+                // Implementar o disparar sobre inimigo.
+            case 2:
+                //implementar o chat
+            case 3:
+                // Enviar mensagem ao oponente que este disconectou!
+                System.exit(0);
+        }
     }
 
     public void finalGameMenu(){
+
 
     }
 
