@@ -1,23 +1,23 @@
-package server;
+package client;
 
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
 
-public class MenuServer {
+public class Menus {
 
     //PROPRIETIES
     private Prompt prompt;
     private String playerNewName;
-    //private int answerIndex;
+    private boolean canStartGame;
 
 
 
     //CONSTRUCTOR
-    public MenuServer() {
+    public Menus() {
         prompt = new Prompt(System.in, System.out);
-        playerNewName = "INSERT NEW NAME";
-        //answerIndex = -1;
+        playerNewName = "";
+        canStartGame = false;
     }
 
     //METHODS
@@ -37,13 +37,13 @@ public class MenuServer {
         }
     }
 
-    public void preGameMenuFalse(){ // Pregame menu (random ships position = false)
+    private void preGameMenuFalse(){ // Pregame menu (random ships position = false)
         String[] options = {"Name: " + playerNewName, "Ships Position: Choose by player", "Choose Ship Position", "Start Game"};
         String setMessage = "Enemy Fleet Ahead! Prepare to Battle!";
 
         switch (menuMaker(options, setMessage)) {
             case 1:
-                inputText("Choose your name: ");
+                inputPlayerName();
                 preGameMenuFalse();
                 break;
             case 2:
@@ -54,18 +54,17 @@ public class MenuServer {
                 break;
             case 4:
                 // inserir condições se escolheu o nome e se escolheu a posição dos barcos.
-                GameServer newGame = new GameServer();
-                newGame.start();
+                // começar jogo
         }
     }
 
-    public void preGameMenuTrue(){ //Pregame menu (random ships position = true)
+    private void preGameMenuTrue(){ //Pregame menu (random ships position = true)
         String[] options = {"Name: " + playerNewName, "Ships Position: Random", "LOCKED", "Start Game"};
         String setMessage = "Enemy Fleet Ahead! Prepare to Battle!";
 
         switch (menuMaker(options, setMessage)) {
             case 1:
-                inputText("Choose your name: ");
+                inputPlayerName();
                 preGameMenuTrue();
                 break;
             case 2:
@@ -76,13 +75,12 @@ public class MenuServer {
                 preGameMenuTrue();
                 break;
             case 4:
-                // inserir a condição se escolheu o nome.
-                GameServer newGame = new GameServer();
-                newGame.start();
+                // inserir condições se escolheu o nome e se escolheu a posição dos barcos.
+                canStartGame = true; // se ambos tiverem a true, o servidor pode dar a ordem de começar o jogo.
         }
     }
 
-    public void deployPositionShips(){ //Responsable for positioning our ships in the grid.
+    private void deployPositionShips(){ //Responsable for positioning our ships in the grid.
 
 
 
@@ -95,13 +93,13 @@ public class MenuServer {
         switch (menuMaker(options,setMessage)){
             case 1:
                 System.out.println("It's our opponent turn, Admiral " + playerNewName + "!");
-                inGameMenuOurTurn();
+                inGameMenuOpponentTurn();
                 break;
             case 2:
                 // Implementar o chat.
                 System.out.println("Ainda em construção");
             case 3:
-                // Enviar mensagem ao oponente que este disconectou!
+                // Enviar mensagem ao oponente a informar que este disconectou!
                 System.exit(0);
         }
     }
@@ -115,14 +113,23 @@ public class MenuServer {
             case 2:
                 //implementar o chat
             case 3:
-                // Enviar mensagem ao oponente que este disconectou!
+                // Enviar mensagem ao oponente a informar que este disconectou!
                 System.exit(0);
         }
     }
 
     public void finalGameMenu(){
-
-
+        String[] options = {"Play again", "Quit Game"};
+        String setMessage = "Admiral " + playerNewName + ", do you want a rematch?";
+        switch (menuMaker(options, setMessage)) {
+            case 1:
+                // dizer ao oponente que está pronto para jogo novo
+                // se oponente também quiser rematch mandar para o menu pregamemenufalse
+                break;
+            case 2:
+                // Enviar mensagem ao oponente a informar que este disconectou!
+                System.exit(0);
+        }
     }
 
     public void optionsMenu(){
@@ -135,11 +142,9 @@ public class MenuServer {
         return prompt.getUserInput(scanner);
     }
 
-    private void inputText(String setMessage){
+    private void inputPlayerName(){
         StringInputScanner question = new StringInputScanner();
-        question.setMessage(setMessage);
+        question.setMessage("Whats your name Admiral? ");
         playerNewName = prompt.getUserInput(question);
     }
-
-
 }
