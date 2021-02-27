@@ -10,14 +10,14 @@ public class Menus {
     private Prompt prompt;
     private String playerNewName;
     private boolean canStartGame;
-
-
+    Game newGame;
 
     //CONSTRUCTOR
     public Menus() {
         prompt = new Prompt(System.in, System.out);
+        newGame = new Game();
         playerNewName = "";
-        canStartGame = false;
+
     }
 
     //METHODS
@@ -54,7 +54,7 @@ public class Menus {
                 break;
             case 4:
                 // inserir condições se escolheu o nome e se escolheu a posição dos barcos.
-                // começar jogo
+                newGame.start();
         }
     }
 
@@ -76,11 +76,21 @@ public class Menus {
                 break;
             case 4:
                 // inserir condições se escolheu o nome e se escolheu a posição dos barcos.
-                canStartGame = true; // se ambos tiverem a true, o servidor pode dar a ordem de começar o jogo.
+                newGame.start();
         }
     }
 
-    private void deployPositionShips(){ //Responsable for positioning our ships in the grid.
+    private void deployPositionShips(){
+        inputShipPosition(Ships.ShipType.BATTLESHIP);
+
+
+
+        inputShipPosition(Ships.ShipType.CRUISER);
+
+        inputShipPosition(Ships.ShipType.FRIGATE);
+
+        inputShipPosition(Ships.ShipType.MINESWEEPER);
+
 
 
 
@@ -146,5 +156,27 @@ public class Menus {
         StringInputScanner question = new StringInputScanner();
         question.setMessage("Whats your name Admiral? ");
         playerNewName = prompt.getUserInput(question);
+    }
+
+    private void inputShipPosition(Ships.ShipType ship){
+        StringInputScanner question1 = new StringInputScanner();
+        question1.setMessage("Choose " + ship + " position.");
+        String shipPosition = prompt.getUserInput(question1);
+        String[] options = {"Vertical","Horizontal"};
+        menuMaker(options, "Vertical or Horizontal?");
+        int shipVertHor = prompt.getUserInput(options);
+        // 1 vertical 2 horizontal
+
+        for( int i = 0; i < ship.size; i++){
+            if( shiptVertHor == 1)
+
+
+        }
+
+
+
+
+        // fazer aqui a implementação do pintar...
+
     }
 }

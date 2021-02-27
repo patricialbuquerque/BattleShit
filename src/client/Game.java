@@ -21,16 +21,13 @@ public class Game {
 
     public Game(){
         promptToInside = new Prompt(System.in, System.out);
-        Menus newMenu = new Menus();
         ipAddressAndPort();
         startClientSocket();
-        newMenu.mainMenu();
+
     }
 
 
-
-
-    private void ipAddressAndPort(){
+    public void ipAddressAndPort(){
         StringInputScanner question1 = new StringInputScanner();
         question1.setMessage("IP Address: ");
         ipAddressServer = promptToInside.getUserInput(question1);
@@ -39,7 +36,7 @@ public class Game {
         portServer = promptToInside.getUserInput(question2);
     }
 
-    private void startClientSocket(){
+    public void startClientSocket(){
         try {
             clientSocket= new Socket(ipAddressServer,portServer);
             System.out.println("Connecting to server...");
@@ -49,7 +46,7 @@ public class Game {
         }
     }
 
-    private void gameCanStart(){
+    public void start(){
 
 
 
@@ -57,7 +54,4 @@ public class Game {
         // Se não, wait.
         // Se sim, iniciar o jogo.
     }
-
-
-
 }
