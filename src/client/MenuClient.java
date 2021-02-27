@@ -10,15 +10,12 @@ public class MenuClient {
     //PROPRIETIES
     private Prompt prompt;
     private String playerNewName;
-    //private int answerIndex;
-
 
 
     //CONSTRUCTOR
     public MenuClient() {
         prompt = new Prompt(System.in, System.out);
         playerNewName = "INSERT NEW NAME";
-        //answerIndex = -1;
     }
 
     //METHODS
@@ -96,13 +93,13 @@ public class MenuClient {
         switch (menuMaker(options,setMessage)){
             case 1:
                 System.out.println("It's our opponent turn, Admiral " + playerNewName + "!");
-                inGameMenuOurTurn();
+                inGameMenuOpponentTurn();
                 break;
             case 2:
                 // Implementar o chat.
                 System.out.println("Ainda em construção");
             case 3:
-                // Enviar mensagem ao oponente que este disconectou!
+                // Enviar mensagem ao oponente a informar que este disconectou!
                 System.exit(0);
         }
     }
@@ -116,14 +113,23 @@ public class MenuClient {
             case 2:
                 //implementar o chat
             case 3:
-                // Enviar mensagem ao oponente que este disconectou!
+                // Enviar mensagem ao oponente a informar que este disconectou!
                 System.exit(0);
         }
     }
 
     public void finalGameMenu(){
-
-
+        String[] options = {"Play again", "Quit Game"};
+        String setMessage = "Admiral " + playerNewName + ", do you want a rematch?";
+        switch (menuMaker(options, setMessage)) {
+            case 1:
+                // dizer ao oponente que está pronto para jogo novo
+                // se oponente também quiser rematch mandar para o menu pregamemenufalse
+                break;
+            case 2:
+                // Enviar mensagem ao oponente a informar que este disconectou!
+                System.exit(0);
+        }
     }
 
     public void optionsMenu(){
@@ -141,6 +147,4 @@ public class MenuClient {
         question.setMessage(setMessage);
         playerNewName = prompt.getUserInput(question);
     }
-
-
 }

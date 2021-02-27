@@ -6,7 +6,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        HashMap <String, String> grid = new HashMap<>();
+
+        MenuClient newmenu = new MenuClient();
+        newmenu.mainMenu();
+
+
+       /* HashMap <String, String> grid = new HashMap<>();
 
         String alphabet = "ABCDEFGHIJ";
 
@@ -19,6 +24,6 @@ public class Main {
         }
         for (String j : grid.keySet()) {
             System.out.println(j);
-        }
+        }*/
     }
 }
