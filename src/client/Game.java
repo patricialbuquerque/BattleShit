@@ -5,6 +5,7 @@ import org.academiadecodigo.bootcamp.scanners.integer.IntegerInputScanner;
 import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Game {
@@ -15,17 +16,12 @@ public class Game {
     private Prompt promptToInside;
 
 
-
-
-
-
     public Game(){
         promptToInside = new Prompt(System.in, System.out);
         ipAddressAndPort();
         startClientSocket();
 
     }
-
 
     public void ipAddressAndPort(){
         StringInputScanner question1 = new StringInputScanner();
@@ -47,11 +43,22 @@ public class Game {
     }
 
     public void start(){
+        readyCheckOtherPlayer();
 
-
-
-        // Enviar para o servidor o canStartGame do menu para verificar se ambos os players podem começar o jogo.
-        // Se não, wait.
-        // Se sim, iniciar o jogo.
     }
+
+    private void readyCheckOtherPlayer(){
+        try {
+            PrintWriter readyCheck = new PrintWriter(clientSocket.getOutputStream(), true);
+            readyCheck.println("Ready to Start Game?");
+        } catch (IOException e) {
+            System.out.println("cannot communicate with server");
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
 }

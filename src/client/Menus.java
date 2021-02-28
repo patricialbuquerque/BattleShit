@@ -12,7 +12,7 @@ public class Menus {
     private Prompt prompt;
     private String playerNewName;
     private boolean canStartGame;
-    Game newGame;
+    private Game newGame;
     private BattleField battleField;
 
     //CONSTRUCTOR
@@ -107,9 +107,10 @@ public class Menus {
                continue;
             }
             newShips.placeShips(battleField);
-            System.out.println("Jesus");
+
 
         }
+        battleField.showBattleField();
         preGameMenuFalse();
     }
 
