@@ -49,7 +49,8 @@ public class BattleField {
     public void placeShipOnGrid(String key){
         //get shipPosition from inputShipPosition
 
-        grid.put(key, Color.ANSI_GREEN + "#" + Color.ANSI_WHITE);
+        grid.put(key, "#");
+        System.out.println(key);
     }
     public void shoot(String key){
         if( grid.get(key) == "≈"){
