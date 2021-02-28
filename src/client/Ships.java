@@ -15,6 +15,11 @@ public class Ships {
     private String initialPosition;
     private boolean horizontal;
     private String alphabet = "ABCDEFGHIJ";
+    private int numericRow;
+    private int numericCol;
+    private String initialRow;
+    private String initialCol;
+
 
 
     public Ships(ShipType type, String initialPosition, boolean horizontal) {
@@ -43,55 +48,69 @@ public class Ships {
     //extra constructor - needs to be FINISHED
     public Ships(ShipType type){
         this.type = type;
+        numericRow = Character.getNumericValue(initialPosition.charAt(0)) - 10;
+        numericCol = Character.getNumericValue(initialPosition.charAt(1));
+
+        initialRow = initialPosition.substring(0,1);
+        initialCol = initialPosition.substring(1) ;
 
     }
 
-    public void validateShipPosition(BattleField battleField){
+   public boolean validateShipPosition(BattleField battleField) {
 
-        int initialRow = Character.getNumericValue(initialPosition.charAt(0));
-        int initialCol = Character.getNumericValue(initialPosition.charAt(1));
+       //if horizontal, needs to increase the number of the key
+       if (horizontal == true) {
+           for (int i = numericCol; i < size + numericCol; i++) {
 
-
-        //if horizontal, needs to increase the number of the key
-        if(horizontal == true){
-            for(int i = 0; i < size; i++){
-                if (battleField.getGrid().get(initialPosition) == "≈"){
+               String key = initialRow + i;
 
 
-            }
-        }        }
+               if (battleField.getGrid().get(key) == "≈") {
+                   System.out.println("You cannot place ship here...");
+                   return false;
+               }
+           }
+           return true;
+       } else{
 
-    }
+           for (int i = numericRow; i < size + numericRow; i++) {
 
-
-
-
-
-
-
-
-
-    /*public void inputShipPosition(Ships.ShipType ship){
-
-        StringInputScanner question1 = new StringInputScanner();
-        question1.setMessage("Choose " + ship + " position.");
-        String shipPosition = prompt.getUserInput(question1);
+               String key = Character.toString(alphabet.charAt(i)) + initialCol;
 
 
-        String[] options = {"Vertical","Horizontal"};
-        menuMaker(options, "Vertical or Horizontal?");
-        //int shipVertHor = prompt.getUserInput(options);
-        // 1 vertical 2 horizontal
-        //if((grid.get(question1) == "≈") && ){
+               if (battleField.getGrid().get(key) != "≈") {
+                   System.out.println("You cannot place ship here...");
+                   return false;
+               }
+           }
+           return true;
+       }
 
+   }
 
-       /* }
-        for( int i = 0; i < ship.size; i++){
-            if( shiptVertHor == 1){
+   public void placeShips(BattleField battleField){
 
-            }*/
+       //if horizontal, needs to increase the number of the key
+       if (horizontal == true) {
+           for (int i = numericCol; i < size + numericCol; i++) {
 
+               String key = initialRow + String.valueOf(i);
+               System.out.println(initialRow);
+               battleField.placeShipOnGrid(key);
 
+           }
+       } else {
+           for (int i = numericRow; i < size + numericRow; i++) {
 
+               String key = Character.toString(alphabet.charAt(i)) + initialCol;
+               System.out.println(key);
+               System.out.println(initialCol);
+               battleField.getGrid().put(key, "#");
+
+           }
+
+       }
+
+   }
 
 }
