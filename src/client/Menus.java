@@ -50,7 +50,7 @@ public class Menus {
                 preGameMenuTrue();
                 break;
             case 3:
-                deployPositionShips();//Implementar depois de termos os barcos definidos. Vai aqui deixar de ser água para ser barco.
+                //deployPositionShips();//Implementar depois de termos os barcos definidos. Vai aqui deixar de ser água para ser barco.
                 break;
             case 4:
                 // inserir condições se escolheu o nome e se escolheu a posição dos barcos.
@@ -80,7 +80,7 @@ public class Menus {
         }
     }
 
-    private void deployPositionShips(){
+    /*private void deployPositionShips(){
         inputShipPosition(Ships.ShipType.BATTLESHIP);
 
 
@@ -95,7 +95,7 @@ public class Menus {
 
 
 
-    }
+    }*/
 
     public void inGameMenuOpponentTurn(){
         String[] options = {"Waiting for Opponent", "Chat", "Rage Quit"};
@@ -158,25 +158,5 @@ public class Menus {
         playerNewName = prompt.getUserInput(question);
     }
 
-    private void inputShipPosition(Ships.ShipType ship){
-        StringInputScanner question1 = new StringInputScanner();
-        question1.setMessage("Choose " + ship + " position.");
-        String shipPosition = prompt.getUserInput(question1);
-        String[] options = {"Vertical","Horizontal"};
-        menuMaker(options, "Vertical or Horizontal?");
-        int shipVertHor = prompt.getUserInput(options);
-        // 1 vertical 2 horizontal
 
-        for( int i = 0; i < ship.size; i++){
-            if( shiptVertHor == 1)
-
-
-        }
-
-
-
-
-        // fazer aqui a implementação do pintar...
-
-    }
 }

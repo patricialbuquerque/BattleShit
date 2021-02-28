@@ -1,5 +1,8 @@
 package client;
 
+import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
+import util.Color;
+
 import java.util.TreeMap;
 
 public class BattleField {
@@ -9,8 +12,8 @@ public class BattleField {
     private static final int ROWS = 10;
     private static final int COLS = 10;
     private static TreeMap<String, String> grid;
-    String alphabet = "ABCDEFGHIJ";
-    String line = "";
+    private String alphabet = "ABCDEFGHIJ";
+    private String line = "";
 
     //CONSTRUCTOR
     public BattleField(){
@@ -21,7 +24,7 @@ public class BattleField {
         for (int i = 0; i < 10; i++) {
             String letter = Character.toString(alphabet.charAt(i));
             for (int j = 0; j < 10; j++) {
-                grid.put(letter + j, "≈");
+                grid.put(letter + j,"≈");
             }
         }
     }
@@ -44,15 +47,24 @@ public class BattleField {
     }
 
     public void placeShipOnGrid(String key){
-        grid.put(key, "#");
+        //get shipPosition from inputShipPosition
+
+        grid.put(key, Color.ANSI_GREEN + "#" + Color.ANSI_WHITE);
     }
     public void shoot(String key){
         if( grid.get(key) == "≈"){
             grid.put(key,"O");
         }
         if( grid.get(key) == "#"){
-            grid.put(key, "X");
+            grid.put(key, Color.ANSI_RED + "X" + Color.ANSI_WHITE);
         }
     }
 
+    public TreeMap<String, String> getGrid() {
+        return grid;
+    }
+
+    public void setGrid(TreeMap<String, String> grid) {
+        BattleField.grid = grid;
+    }
 }

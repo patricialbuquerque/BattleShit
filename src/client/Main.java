@@ -10,11 +10,15 @@ public class Main {
 
         BattleField battleField = new BattleField();
         battleField.createField();
-        battleField.changeBattleField("A0");
-        battleField.changeBattleField("D4");
-        battleField.changeBattleField("H5");
+
+        System.out.println(battleField.getGrid().get("A5").equals("≈"));
+
+        battleField.placeShipOnGrid("A3");
 
         battleField.showBattleField();
+
+
+
 
 
 
