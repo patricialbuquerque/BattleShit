@@ -59,7 +59,6 @@ public class BattleField {
         //get shipPosition from inputShipPosition
 
         grid.put(key, Symbols.SHIP);
-        System.out.println(key);
     }
 
 
