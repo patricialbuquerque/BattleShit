@@ -2,6 +2,7 @@ package client;
 
 import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
 import util.Color;
+import util.Symbols;
 
 import java.util.TreeMap;
 
@@ -24,14 +25,14 @@ public class BattleField {
         for (int i = 0; i < 10; i++) {
             String letter = Character.toString(alphabet.charAt(i));
             for (int j = 0; j < 10; j++) {
-                grid.put(letter + j,"≈");
+                grid.put(letter + j,Symbols.SEA);
             }
         }
     }
 
 
     public void showBattleField(){
-        System.out.print(" ");
+        System.out.print("  ");
         for (int i = 0; i < 10; i++) {
             System.out.print("|" + " " + i + " ");
         }
@@ -39,9 +40,17 @@ public class BattleField {
         for (int i = 0; i < 10; i++) {
             String letter = Character.toString(alphabet.charAt(i));
             for (int j = 0; j < 10; j++) {
-                line += grid.get(letter + j) + " | ";
+                if(j == 0){
+                    line += " " + Color.COLOR + "| " + grid.get(letter + j) + Color.COLOR   + Color.RESET;
+                }
+                if(j > 0 && j < 9){
+                    line += Color.COLOR + " | " + grid.get(letter + j)  + Color.RESET;
+                }
+                if(j == 9){
+                    line += Color.COLOR + " | " + grid.get(letter + j) +  Color.COLOR + " |" + Color.RESET;
+                }
             }
-            System.out.println(letter + "| " + line);
+            System.out.println((letter + line) + (Color.COLOR  + Color.RESET ));
             line = "";
         }
     }
@@ -49,15 +58,17 @@ public class BattleField {
     public void placeShipOnGrid(String key){
         //get shipPosition from inputShipPosition
 
-        grid.put(key, "#");
+        grid.put(key, Symbols.SHIP);
         System.out.println(key);
     }
+
+
     public void shoot(String key){
-        if( grid.get(key) == "≈"){
-            grid.put(key,"O");
+        if( grid.get(key) == Symbols.SEA){
+            grid.put(key,Symbols.SEA_SHOT);
         }
-        if( grid.get(key) == "#"){
-            grid.put(key, Color.ANSI_RED + "X" + Color.ANSI_WHITE);
+        if( grid.get(key) == Symbols.SHIP){
+            grid.put(key,Symbols.SHIP_SHOT);
         }
     }
 

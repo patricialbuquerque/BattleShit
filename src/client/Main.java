@@ -1,9 +1,7 @@
 package client;
 
-import org.academiadecodigo.bootcamp.Prompt;
-import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
+import util.Symbols;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -11,9 +9,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Menus menu = new Menus();
-        menu.mainMenu();
 
+        BattleField battleField = new BattleField();
+        battleField.createField();
+
+        System.out.println(battleField.getGrid().get("A5").equals(Symbols.SEA));
+
+        battleField.placeShipOnGrid("A3");
+
+        battleField.showBattleField();
 
 
     }
