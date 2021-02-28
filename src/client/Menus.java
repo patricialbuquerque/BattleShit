@@ -4,6 +4,8 @@ import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
 
+import java.util.Arrays;
+
 public class Menus {
 
     //PROPRIETIES
@@ -11,12 +13,15 @@ public class Menus {
     private String playerNewName;
     private boolean canStartGame;
     Game newGame;
+    private BattleField battleField;
 
     //CONSTRUCTOR
     public Menus() {
         prompt = new Prompt(System.in, System.out);
         newGame = new Game();
         playerNewName = "";
+        battleField = new BattleField();
+        battleField.createField();
 
     }
 
@@ -50,7 +55,7 @@ public class Menus {
                 preGameMenuTrue();
                 break;
             case 3:
-                //deployPositionShips();//Implementar depois de termos os barcos definidos. Vai aqui deixar de ser água para ser barco.
+                deployPositionShips();//Implementar depois de termos os barcos definidos. Vai aqui deixar de ser água para ser barco.
                 break;
             case 4:
                 // inserir condições se escolheu o nome e se escolheu a posição dos barcos.
@@ -80,22 +85,33 @@ public class Menus {
         }
     }
 
-    /*private void deployPositionShips(){
-        inputShipPosition(Ships.ShipType.BATTLESHIP);
+    private void deployPositionShips(){
+        Ships.ShipType[] ships = Ships.ShipType.values();
+
+        for(int i = 1; i <= ships.length; i++){
+
+            battleField.showBattleField();
+
+            StringInputScanner question1 = new StringInputScanner();
+            question1.setMessage("Choose the initial coordinate for " + ships[i - 1].toString());
+            String coordinates = prompt.getUserInput(question1);
 
 
+            String[] directions = {"Horizontal", "Vertical"};
+            boolean horizontal = menuMaker(directions, "Choose direction") == 1;
 
-        inputShipPosition(Ships.ShipType.CRUISER);
+            Ships newShips = new Ships(ships[i - 1], coordinates, horizontal);
 
-        inputShipPosition(Ships.ShipType.FRIGATE);
+            if(newShips.validateShipPosition(battleField) == false){
+               i--;
+               continue;
+            }
+            newShips.placeShips(battleField);
+            System.out.println("Jesus");
 
-        inputShipPosition(Ships.ShipType.MINESWEEPER);
-
-
-
-
-
-    }*/
+        }
+        preGameMenuFalse();
+    }
 
     public void inGameMenuOpponentTurn(){
         String[] options = {"Waiting for Opponent", "Chat", "Rage Quit"};

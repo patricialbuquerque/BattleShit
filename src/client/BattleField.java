@@ -60,6 +60,8 @@ public class BattleField {
 
         grid.put(key, Symbols.SHIP);
     }
+
+
     public void shoot(String key){
         if( grid.get(key) == Symbols.SEA){
             grid.put(key,Symbols.SEA_SHOT);
