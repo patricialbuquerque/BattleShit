@@ -50,7 +50,7 @@ public class Game {
     private void readyCheckOtherPlayer(){
         try {
             PrintWriter readyCheck = new PrintWriter(clientSocket.getOutputStream(), true);
-            readyCheck.println("Ready to Start Game?");
+            readyCheck.println("/ready");
         } catch (IOException e) {
             System.out.println("cannot communicate with server");
             e.printStackTrace();
@@ -58,6 +58,8 @@ public class Game {
 
 
     }
+
+
 
 
 
