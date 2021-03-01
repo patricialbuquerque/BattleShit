@@ -3,6 +3,7 @@ package client;
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
+import util.Color;
 
 import java.util.Arrays;
 
@@ -14,6 +15,7 @@ public class Menus {
     private boolean canStartGame;
     private Game newGame;
     private BattleField battleField;
+    private Color colors;
 
     //CONSTRUCTOR
     public Menus() {
@@ -22,13 +24,14 @@ public class Menus {
         playerNewName = "";
         battleField = new BattleField();
         battleField.createField();
+        colors = new Color();
 
     }
 
     //METHODS
     public void mainMenu(){
-        String[] menuOptions = {"Play Game", "Options", "Quit Game"};
-        String message = "Battle Shits, our weekend surprise!";
+        String[] menuOptions = {colors.ANSI_GREEN + "Play Game" + colors.RESET, colors.ANSI_BLUE + "Options" + colors.RESET, colors.ANSI_RED + "Quit Game" + colors.RESET};
+        String message = colors.BOLD + "\033[38;5;22m" + "\033[48;5;76m" + "Battle Shits, our weekend surprise!" + colors.RESET;
 
         switch (menuMaker(menuOptions, message)){
             case 1:
@@ -43,8 +46,8 @@ public class Menus {
     }
 
     private void preGameMenuFalse(){ // Pregame menu (random ships position = false)
-        String[] options = {"Name: " + playerNewName, "Ships Position: Choose by player", "Choose Ship Position", "Start Game"};
-        String setMessage = "Enemy Fleet Ahead! Prepare to Battle!";
+        String[] options = {colors.ANSI_BLUE + "Name: " + colors.RESET + colors.ANSI_YELLOW + playerNewName + colors.RESET, colors.ANSI_BLUE + "Ships Position:" + colors.RESET + colors.ANSI_WHITE + " Choose by player" + colors.RESET, colors.ANSI_BLUE + "Choose Ship Position" + colors.RESET, colors.ANSI_GREEN + "Start Game" + colors.RESET};
+        String setMessage = colors.BOLD + colors.ANSI_RED_BACKGROUND + colors.ANSI_BLACK + "Enemy Fleet Ahead! Prepare to Battle!" + colors.RESET;
 
         switch (menuMaker(options, setMessage)) {
             case 1:
@@ -64,8 +67,8 @@ public class Menus {
     }
 
     private void preGameMenuTrue(){ //Pregame menu (random ships position = true)
-        String[] options = {"Name: " + playerNewName, "Ships Position: Random", "LOCKED", "Start Game"};
-        String setMessage = "Enemy Fleet Ahead! Prepare to Battle!";
+        String[] options = {colors.ANSI_BLUE + "Name: " + colors.RESET + colors.ANSI_YELLOW + playerNewName + colors.RESET, colors.ANSI_BLUE + "Ships Position: " + colors.RESET + colors.ANSI_YELLOW + "RANDOM" + colors.RESET, colors.ANSI_YELLOW + "LOCKED" + colors.RESET, colors.ANSI_GREEN + "Start Game" + colors.RESET};
+        String setMessage = colors.BOLD + colors.ANSI_RED_BACKGROUND + colors.ANSI_BLACK + "Enemy Fleet Ahead! Prepare to Battle!" + colors.RESET;
 
         switch (menuMaker(options, setMessage)) {
             case 1:
@@ -76,7 +79,7 @@ public class Menus {
                 preGameMenuFalse();
                 break;
             case 3:
-                System.out.println("You can't choose this option.");
+                System.out.println(colors.ANSI_RED + "You can't choose this option." + colors.RESET);
                 preGameMenuTrue();
                 break;
             case 4:
@@ -93,18 +96,18 @@ public class Menus {
             battleField.showBattleField();
 
             StringInputScanner question1 = new StringInputScanner();
-            question1.setMessage("Choose the initial coordinate for " + ships[i - 1].toString());
+            question1.setMessage(colors.ANSI_BLUE + "Choose the initial coordinate for " + colors.ANSI_BLUE + colors.ANSI_GREEN + ships[i - 1].toString() + colors.RESET);
             String coordinates = prompt.getUserInput(question1);
 
 
-            String[] directions = {"Horizontal", "Vertical"};
-            boolean horizontal = menuMaker(directions, "Choose direction") == 1;
+            String[] directions = {colors.ANSI_YELLOW + "Horizontal" + colors.RESET, colors.ANSI_YELLOW + "Vertical" + colors.RESET};
+            boolean horizontal = menuMaker(directions, colors.BOLD + colors.ANSI_RED + "Choose direction" + colors.RESET) == 1;
 
             Ships newShips = new Ships(ships[i - 1], coordinates, horizontal);
 
             if(newShips.validateShipPosition(battleField) == false){
-               i--;
-               continue;
+                i--;
+                continue;
             }
             newShips.placeShips(battleField);
 
@@ -115,11 +118,11 @@ public class Menus {
     }
 
     public void inGameMenuOpponentTurn(){
-        String[] options = {"Waiting for Opponent", "Chat", "Rage Quit"};
+        String[] options = {colors.ANSI_BLUE + "Waiting for Opponent" + colors.RESET, colors.ANSI_BLUE + "Chat" + colors.RESET, colors.ANSI_RED + "Rage Quit" + colors.RESET};
         String setMessage = "Incoming Fire! Protect yourself!";
         switch (menuMaker(options,setMessage)){
             case 1:
-                System.out.println("It's our opponent turn, Admiral " + playerNewName + "!");
+                System.out.println(colors.ANSI_BLUE + "It's our opponent turn, Admiral " + colors.RESET + colors.ANSI_RED + playerNewName + colors.RESET + colors.ANSI_BLUE + "!" + colors.RESET);
                 inGameMenuOpponentTurn();
                 break;
             case 2:
@@ -132,8 +135,8 @@ public class Menus {
     }
 
     public void inGameMenuOurTurn(){
-        String[] options = {"FIRE!!", "Chat", "Rage Quit"};
-        String setMessage = "Open Fire! Let's shoot the bastards!!";
+        String[] options = {colors.ANSI_YELLOW + "FIRE!!" + colors.RESET, colors.ANSI_BLUE + "Chat" + colors.RESET, colors.ANSI_RED + "Rage Quit" + colors.RESET};
+        String setMessage = colors.ANSI_RED + "Open Fire! Let's shoot the bastards!!" + colors.RESET;
         switch(menuMaker(options,setMessage)){
             case 1:
                 // Implementar o disparar sobre inimigo.
@@ -146,8 +149,8 @@ public class Menus {
     }
 
     public void finalGameMenu(){
-        String[] options = {"Play again", "Quit Game"};
-        String setMessage = "Admiral " + playerNewName + ", do you want a rematch?";
+        String[] options = {colors.ANSI_GREEN + "Play again" + colors.RESET, colors.ANSI_RED + "Quit Game" + colors.RESET};
+        String setMessage = colors.ANSI_BLUE + "Admiral " + colors.RESET + colors.ANSI_YELLOW +  playerNewName + colors.RESET + colors.ANSI_BLUE + ", do you want a rematch?" + colors.RESET;
         switch (menuMaker(options, setMessage)) {
             case 1:
                 // dizer ao oponente que está pronto para jogo novo
@@ -171,7 +174,7 @@ public class Menus {
 
     private void inputPlayerName(){
         StringInputScanner question = new StringInputScanner();
-        question.setMessage("Whats your name Admiral? ");
+        question.setMessage(colors.ANSI_BLUE + "Whats your name Admiral? " + colors.RESET);
         playerNewName = prompt.getUserInput(question);
     }
 
