@@ -30,7 +30,6 @@ public class BattleField {
         }
     }
 
-
     public void showBattleField(){
         System.out.print("  ");
         for (int i = 0; i < 10; i++) {
@@ -61,6 +60,13 @@ public class BattleField {
         grid.put(key, Symbols.SHIP);
     }
 
+    public String getValue(String key){
+       return grid.get(key);
+    }
+
+    public void setValue(String key, String value){
+        grid.put(key,value);
+    }
 
     public void shoot(String key){
 

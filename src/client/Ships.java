@@ -46,7 +46,6 @@ public class Ships {
                 size = 2;
                 break;
         }
-
     }
 
 
@@ -83,18 +82,15 @@ public class Ships {
     }
 
     public void placeShips(BattleField battleField) {
-
         //if horizontal, needs to increase the number of the key
         if (horizontal == true) {
             for (int i = numericCol; i < size + numericCol; i++) {
-
                 String key = initialRow + String.valueOf(i);
                 battleField.placeShipOnGrid(key);
             }
             return;
         }
         for (int i = numericRow; i < size + numericRow; i++) {
-
             String key = alphabet.charAt(i) + initialCol;
             battleField.placeShipOnGrid(key);
         }

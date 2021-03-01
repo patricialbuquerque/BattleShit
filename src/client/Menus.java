@@ -4,21 +4,21 @@ import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.bootcamp.scanners.string.StringInputScanner;
 
-import java.util.Arrays;
-
 public class Menus {
 
     //PROPRIETIES
     private Prompt prompt;
     private String playerNewName;
     private boolean canStartGame;
-    private Game newGame;
+    private Communicator newCommunicator;
     private BattleField battleField;
+    private EnemyGrid enemyGrid;
 
     //CONSTRUCTOR
     public Menus() {
         prompt = new Prompt(System.in, System.out);
-        newGame = new Game();
+        newCommunicator = new Communicator(this);
+        enemyGrid = new EnemyGrid();
         playerNewName = "";
         battleField = new BattleField();
         battleField.createField();
@@ -59,7 +59,7 @@ public class Menus {
                 break;
             case 4:
                 // inserir condições se escolheu o nome e se escolheu a posição dos barcos.
-                newGame.start();
+                newCommunicator.begin();
         }
     }
 
@@ -81,7 +81,7 @@ public class Menus {
                 break;
             case 4:
                 // inserir condições se escolheu o nome e se escolheu a posição dos barcos.
-                newGame.start();
+                newCommunicator.begin();
         }
     }
 
@@ -114,50 +114,6 @@ public class Menus {
         preGameMenuFalse();
     }
 
-    public void inGameMenuOpponentTurn(){
-        String[] options = {"Waiting for Opponent", "Chat", "Rage Quit"};
-        String setMessage = "Incoming Fire! Protect yourself!";
-        switch (menuMaker(options,setMessage)){
-            case 1:
-                System.out.println("It's our opponent turn, Admiral " + playerNewName + "!");
-                inGameMenuOpponentTurn();
-                break;
-            case 2:
-                // Implementar o chat.
-                System.out.println("Ainda em construção");
-            case 3:
-                // Enviar mensagem ao oponente a informar que este disconectou!
-                System.exit(0);
-        }
-    }
-
-    public void inGameMenuOurTurn(){
-        String[] options = {"FIRE!!", "Chat", "Rage Quit"};
-        String setMessage = "Open Fire! Let's shoot the bastards!!";
-        switch(menuMaker(options,setMessage)){
-            case 1:
-                // Implementar o disparar sobre inimigo.
-            case 2:
-                //implementar o chat
-            case 3:
-                // Enviar mensagem ao oponente a informar que este disconectou!
-                System.exit(0);
-        }
-    }
-
-    public void finalGameMenu(){
-        String[] options = {"Play again", "Quit Game"};
-        String setMessage = "Admiral " + playerNewName + ", do you want a rematch?";
-        switch (menuMaker(options, setMessage)) {
-            case 1:
-                // dizer ao oponente que está pronto para jogo novo
-                // se oponente também quiser rematch mandar para o menu pregamemenufalse
-                break;
-            case 2:
-                // Enviar mensagem ao oponente a informar que este disconectou!
-                System.exit(0);
-        }
-    }
 
     public void optionsMenu(){
         System.out.println("Site em construção...");
@@ -175,5 +131,24 @@ public class Menus {
         playerNewName = prompt.getUserInput(question);
     }
 
+    public String getbattleFieldValue(String key){
+        return battleField.getValue(key);
+
+    }
+
+    public void setBattleFieldValue(String key, String value){
+         battleField.setValue(key, value);
+    }
+
+    public void setEnemyGridValue(String key, String value){
+        enemyGrid.setValue(key,value);
+    }
+
+    public void showPlayerGrid(){
+        battleField.showBattleField();
+    }
+    public void showEnemyGrid(){
+        enemyGrid.showEnemyGrid();
+    }
 
 }
